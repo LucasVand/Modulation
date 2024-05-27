@@ -1,0 +1,107 @@
+.barSeperation {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+
+
+}
+
+.barCont {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    height: 100%;
+    width: 45%;
+}
+
+.barTick {
+    height: 5%;
+    width: 60%;
+
+    background-color: rgb(50, 50, 50);
+    border-radius: 10%/50%;
+    margin: 3%;
+
+    transition: background-color 0.35s;
+}
+
+.barTick.toggle {
+    background-color: #747bff;
+}
+
+.barTick.selected {
+    width: 80%;
+}
+
+.barButton {
+    width: 80%;
+    aspect-ratio: 2/1;
+
+    border-style: solid;
+    border-color: rgb(50, 50, 50);
+    border-width: 3px;
+    background-color: rgb(33, 33, 33);
+    border-radius: 15%/30%;
+
+    transition: border-color 0.25s;
+    transition: color 0.25s;
+
+    filter: drop-shadow(2px 2px 2px rgb(20, 20, 20)) drop-shadow(-2px -2px 2px rgb(40, 40, 40));
+    -webkit-filter: drop-shadow(2px 2px 2px rgb(20, 20, 20)) drop-shadow(-2px -2px 2px rgb(40, 40, 40));
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    color: white;
+
+    transition: scale 0., color 0.5s;
+    margin-top: 10%;
+
+    font-size: large;
+    font-weight: 700;
+}
+
+.barButton.toggle {
+    color: #747bff;
+}
+
+.barButton:hover {
+    border-color: #747bff;
+}
+
+.barButton:active {
+    scale: 0.95;
+}
+
+.tickCont {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 60%;
+    height: 60%;
+    flex-direction: column-reverse;
+
+    border-style: solid;
+    border-color: rgb(50, 50, 50);
+    border-width: 3px;
+    background-color: rgb(33, 33, 33);
+    border-radius: 30%/10%;
+
+
+    transition: color 0.25s, border-color 0.5s;
+
+    filter: drop-shadow(2px 2px 2px rgb(20, 20, 20)) drop-shadow(-2px -2px 2px rgb(40, 40, 40));
+    -webkit-filter: drop-shadow(2px 2px 2px rgb(20, 20, 20)) drop-shadow(-2px -2px 2px rgb(40, 40, 40));
+
+}
+
+.tickCont.toggle {
+    border-color: #747bff;
+}

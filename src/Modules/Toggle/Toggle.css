@@ -1,0 +1,48 @@
+.capsule {
+    background-color: rgb(50, 50, 50);
+    height: 15%;
+    width: 55%;
+    border-radius: 35%/100%;
+
+
+    display: flex;
+    align-items: center;
+    justify-content: left;
+
+    transition: background-color 0.75s;
+    margin: 6%;
+}
+
+.capsule.toggled {
+    background-color: #747bff;
+}
+
+
+.circle {
+
+    border-color: rgb(50, 50, 50);
+    border-style: solid;
+    background-color: rgb(33, 33, 33);
+    height: 132%;
+    aspect-ratio: 1/1;
+    border-radius: 100%;
+    border-width: 4px;
+    filter: drop-shadow(2px 2px 2px rgb(20, 20, 20)) drop-shadow(-2px -2px 2px rgb(40, 40, 40));
+    -webkit-filter: drop-shadow(2px 2px 2px rgb(20, 20, 20)) drop-shadow(-2px -2px 2px rgb(40, 40, 40));
+    transition: left 0.5s;
+
+    position: relative;
+    left: 0%;
+
+}
+
+.circle.toggled {
+    border-color: #747bff;
+    left: 50%;
+
+}
+
+
+.circle:hover {
+    border-color: #747bff;
+}

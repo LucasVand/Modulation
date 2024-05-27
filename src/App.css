@@ -1,0 +1,72 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.bg {
+  color: white;
+  background-color: rgb(31, 31, 31);
+  border-radius: 20%/14.4%;
+  border-color: rgb(40, 40, 40);
+  border-width: 2px;
+  border-style: solid;
+  box-shadow: 4px 4px 4px rgb(20, 20, 20), -4px -4px 4px rgb(40, 40, 40);
+  height: 70%;
+  width: 80%;
+
+  user-select: none;
+
+
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  align-self: center;
+  justify-self: center;
+
+}
+
+
+.z {
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  width: 92vw;
+  height: 91vh;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.moduleCont {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.sideBar {
+  width: 90%;
+  height: 85%;
+  background-color: rgb(31, 31, 31);
+  border-radius: 20%/10%;
+  border-color: rgb(40, 40, 40);
+  border-width: 2px;
+  border-style: solid;
+  box-shadow: 4px 4px 4px rgb(20, 20, 20), -4px -4px 4px rgb(40, 40, 40);
+  user-select: none;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  justify-self: center;
+  align-self: center;
+}

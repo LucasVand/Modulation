@@ -48,6 +48,17 @@ function Toggle(props: toggleProp) {
         setToggled(temp)
     }
 
+    const softReset = () => {
+        const rnd = randomize()
+        const temp: boolean[] = []
+        toggled.forEach((value) => {
+            temp.push(value)
+        })
+        temp[rnd] = !temp[rnd]
+        setToggled(temp)
+
+    }
+
     setTimeout(() => {
         if (props.softReset) {
             softReset()
@@ -57,16 +68,8 @@ function Toggle(props: toggleProp) {
             hardReset()
             props.hardReset = false
         }
-    }, 0.5)
-    const softReset = () => {
-        const rnd = randomize()
-        const temp: boolean[] = []
-        toggled.forEach((value) => {
-            temp.push(value)
-        })
-        temp[rnd] = !temp[rnd]
-        setToggled(temp)
-    }
+        console.log("called")
+    }, 1)
 
 
     return (

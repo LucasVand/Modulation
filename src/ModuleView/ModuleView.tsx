@@ -45,7 +45,7 @@ function ModuleView(props: moduleView) {
         <Bar isDone={props.isDone} setIsDone={props.setIsDone} hardReset={props.hardReset} softReset={props.softReset}></Bar>
 
     ]
-    const [moduleNum, setModuleNum] = useState(randomize())
+    const [moduleNum, setModuleNum] = useState(1)
 
 
     return (

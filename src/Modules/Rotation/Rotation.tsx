@@ -5,6 +5,8 @@ import { useState } from 'react'
 interface moduleProp {
     isDone: boolean
     setIsDone: React.Dispatch<React.SetStateAction<boolean>>
+    hardReset: boolean
+    softReset: boolean
 
 }
 
@@ -73,6 +75,29 @@ function Rotation(props: moduleProp) {
         }
         props.setIsDone(flag)
     }
+
+    const hardReset = () => {
+        var temp = randomize()
+        setSelectedTick(temp)
+        temp = randomize()
+        setCorrectTick(temp)
+    }
+    const softReset = () => {
+        var temp = randomize()
+        setSelectedTick(temp)
+    }
+
+    setTimeout(() => {
+        if (props.softReset) {
+            softReset()
+            props.softReset = false
+        }
+
+        if (props.hardReset) {
+            hardReset()
+            props.hardReset = false
+        }
+    }, 0.5);
     return (
         <>
             <div className='bg'>

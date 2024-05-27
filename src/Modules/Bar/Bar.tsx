@@ -5,12 +5,17 @@ import { useState } from 'react'
 interface moduleProp {
     isDone: boolean
     setIsDone: React.Dispatch<React.SetStateAction<boolean>>
+    hardReset: boolean
+    softReset: boolean
+
 }
 interface barProp {
     setBothDone: React.Dispatch<React.SetStateAction<boolean[]>>
     bothDone: boolean[]
     func: Function
     index: number
+    hardReset: boolean
+    softReset: boolean
 }
 
 
@@ -63,6 +68,28 @@ function BarSection(props: barProp) {
         props.setBothDone(arr)
         props.func(arr)
     }
+    const hardReset = () => {
+        const t = [false, false, false, false, false, false, false, false, false, false, false]
+        setTickOn(t)
+        setCorrect(randomize())
+    }
+    const softReset = () => {
+        const t = [false, false, false, false, false, false, false, false, false, false, false]
+        setTickOn(t)
+    }
+
+    setTimeout(() => {
+        if (props.softReset) {
+            softReset()
+            props.softReset = false
+        }
+
+        if (props.hardReset) {
+            hardReset()
+            props.hardReset = false
+        }
+    }, 0.5);
+
     return (
         <div className='barCont'>
             <div className={`tickCont ${correct + 1 == tickOn.findIndex((v) => v == false) ? 'toggle' : ''}`}>{ticks}</div>
@@ -74,6 +101,8 @@ function BarSection(props: barProp) {
 
 function Bar(props: moduleProp) {
     const [bothDone, setBothDone] = useState([false, false])
+    const hardR = [false, false]
+    const softR = [false, false]
 
     const isDoneFunc = (temp: boolean[]) => {
         var flag = true
@@ -85,12 +114,31 @@ function Bar(props: moduleProp) {
         flag = index == -1 ? true : false
         props.setIsDone(flag)
     }
+
+    setTimeout(() => {
+        setTimeout(() => {
+            if (props.softReset) {
+                const r = Math.round(Math.random())
+                softR[r] = true
+                props.softReset = false
+            }
+
+            if (props.hardReset) {
+                const r = Math.round(Math.random())
+                hardR[r] = true
+                props.hardReset = false
+            }
+        }, 0.5);
+    }, 0.5)
+
+
+
     return (
         <>
             <div className='bg'>
                 <div className='barSeperation'>
-                    <BarSection index={0} func={isDoneFunc} bothDone={bothDone} setBothDone={setBothDone}></BarSection>
-                    <BarSection index={1} func={isDoneFunc} bothDone={bothDone} setBothDone={setBothDone}></BarSection>
+                    <BarSection index={0} func={isDoneFunc} bothDone={bothDone} setBothDone={setBothDone} softReset={softR[0]} hardReset={hardR[0]}></BarSection>
+                    <BarSection index={1} func={isDoneFunc} bothDone={bothDone} setBothDone={setBothDone} softReset={softR[1]} hardReset={hardR[1]}></BarSection>
                 </div>
             </div>
         </>

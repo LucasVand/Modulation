@@ -5,6 +5,8 @@ import { useState } from 'react'
 interface moduleProp {
     isDone: boolean
     setIsDone: React.Dispatch<React.SetStateAction<boolean>>
+    hardReset: boolean
+    softReset: boolean
 
 }
 
@@ -33,9 +35,9 @@ function Range(props: moduleProp) {
     const click = (add: number) => {
         const max = 20
         const newNum = displayNum + add
-        // if (newNum < max && newNum > 0 && displayNum != correctNum) {
+
         setDisplayNum(newNum)
-        // }
+
         isDone(newNum)
     }
 
@@ -47,6 +49,29 @@ function Range(props: moduleProp) {
         props.setIsDone(flag)
 
     }
+
+    const hardReset = () => {
+        var temp = randomize()
+        setCorrectNum(temp)
+        temp = randomize()
+        setDisplayNum(temp)
+    }
+    const softReset = () => {
+        var temp = displayNum + (Math.round(Math.random()) == 1 ? -1 : 1)
+        setDisplayNum(temp)
+    }
+
+    setTimeout(() => {
+        if (props.softReset) {
+            softReset()
+            props.softReset = false
+        }
+
+        if (props.hardReset) {
+            hardReset()
+            props.hardReset = false
+        }
+    }, 0.5);
     return (
         <>
             <div className='bg'>

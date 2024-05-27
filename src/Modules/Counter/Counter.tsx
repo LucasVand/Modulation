@@ -6,6 +6,8 @@ import './Counter.css'
 interface moduleProp {
     isDone: boolean
     setIsDone: React.Dispatch<React.SetStateAction<boolean>>
+    hardReset: boolean
+    softReset: boolean
 
 }
 
@@ -63,6 +65,31 @@ function Counter(props: moduleProp) {
         }
         props.setIsDone(flag)
     }
+
+    const hardReset = () => {
+        const t = [false, false, false, false, false, false, false, false, false, false]
+        setSelectedTick(t)
+        setSelectedNum(randomize())
+    }
+    const softReset = () => {
+        const t = [false, false, false, false, false, false, false, false, false, false]
+        const rnd = Math.round(Math.random() * 9)
+
+        t[rnd] = !t[rnd]
+        setSelectedTick(t)
+    }
+
+    setTimeout(() => {
+        if (props.softReset) {
+            softReset()
+            props.softReset = false
+        }
+
+        if (props.hardReset) {
+            hardReset()
+            props.hardReset = false
+        }
+    }, 0.5);
     return (
         <>
             <div className='bg'>

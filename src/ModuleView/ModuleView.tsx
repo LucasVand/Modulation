@@ -15,6 +15,8 @@ import '../App.css'
 interface moduleView {
     isDone: boolean
     setIsDone: React.Dispatch<SetStateAction<boolean>>
+    hardReset: boolean
+    softReset: boolean
 }
 
 function ModuleView(props: moduleView) {
@@ -29,17 +31,18 @@ function ModuleView(props: moduleView) {
             <div className='bg'></div>
         )
     }
+    const inter = props
     const modules = [
         <Blank></Blank>,
-        <Toggle isDone={props.isDone} setIsDone={props.setIsDone}></Toggle>,
-        <Tile isDone={props.isDone} setIsDone={props.setIsDone}></Tile>,
-        <Shape isDone={props.isDone} setIsDone={props.setIsDone}></Shape>,
-        <Rotation isDone={props.isDone} setIsDone={props.setIsDone}></Rotation>,
-        <Range isDone={props.isDone} setIsDone={props.setIsDone}></Range>,
-        <NumPad isDone={props.isDone} setIsDone={props.setIsDone}></NumPad>,
-        <Grid isDone={props.isDone} setIsDone={props.setIsDone}></Grid>,
-        <Counter isDone={props.isDone} setIsDone={props.setIsDone}></Counter>,
-        <Bar isDone={props.isDone} setIsDone={props.setIsDone}></Bar>
+        <Toggle isDone={props.isDone} setIsDone={props.setIsDone} hardReset={props.hardReset} softReset={props.softReset}></Toggle>,
+        <Tile isDone={props.isDone} setIsDone={props.setIsDone} hardReset={props.hardReset} softReset={props.softReset}></Tile>,
+        <Shape isDone={props.isDone} setIsDone={props.setIsDone} hardReset={props.hardReset} softReset={props.softReset}></Shape>,
+        <Rotation isDone={props.isDone} setIsDone={props.setIsDone} hardReset={props.hardReset} softReset={props.softReset}></Rotation>,
+        <Range isDone={props.isDone} setIsDone={props.setIsDone} hardReset={props.hardReset} softReset={props.softReset}></Range>,
+        <NumPad isDone={props.isDone} setIsDone={props.setIsDone} hardReset={props.hardReset} softReset={props.softReset}></NumPad>,
+        <Grid isDone={props.isDone} setIsDone={props.setIsDone} hardReset={props.hardReset} softReset={props.softReset}></Grid>,
+        <Counter isDone={props.isDone} setIsDone={props.setIsDone} hardReset={props.hardReset} softReset={props.softReset}></Counter>,
+        <Bar isDone={props.isDone} setIsDone={props.setIsDone} hardReset={props.hardReset} softReset={props.softReset}></Bar>
 
     ]
     const [moduleNum, setModuleNum] = useState(randomize())

@@ -4,6 +4,8 @@ import { useState } from 'react'
 interface moduleProp {
     isDone: boolean
     setIsDone: React.Dispatch<React.SetStateAction<boolean>>
+    hardReset: boolean
+    softReset: boolean
 
 }
 
@@ -83,6 +85,44 @@ function Shape(props: moduleProp) {
         })
         props.setIsDone(flag)
     }
+
+    const hardReset = () => {
+        var temp: number[] = []
+        correctShape.forEach(() => {
+            const r = randomize()
+            temp.push(r)
+        })
+        setCorrectShape(temp);
+
+        temp = []
+        DisplayShape.forEach(() => {
+            const r = randomize()
+            temp.push(r)
+        })
+        setDisplayShape(temp);
+    }
+    const softReset = () => {
+        var temp: number[] = []
+        correctShape.forEach((value) => {
+            temp.push(value)
+        })
+
+        const rand = Math.round(0 + Math.random() * (2));
+        temp[rand] = randomize()
+        setCorrectShape(temp);
+    }
+
+    setTimeout(() => {
+        if (props.softReset) {
+            softReset()
+            props.softReset = false
+        }
+
+        if (props.hardReset) {
+            hardReset()
+            props.hardReset = false
+        }
+    }, 0.5);
 
     return (
         <>

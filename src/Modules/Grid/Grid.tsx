@@ -4,6 +4,8 @@ import './Grid.css'
 interface moduleProp {
     isDone: boolean
     setIsDone: React.Dispatch<React.SetStateAction<boolean>>
+    hardReset: boolean
+    softReset: boolean
 
 }
 
@@ -62,6 +64,35 @@ function Grid(props: moduleProp) {
         })
         props.setIsDone(flag)
     }
+
+    const hardReset = () => {
+        const t = [false, false, false, false, false, false, false, false, false]
+        const d = [rndBool(), rndBool(), rndBool(), rndBool(), rndBool(), rndBool(), rndBool(), rndBool(), rndBool()]
+        setCorrect(d)
+        setDown(t)
+    }
+    const softReset = () => {
+        const rnd = Math.round(Math.random() * 8)
+        const temp: boolean[] = []
+
+        down.map((value, index) => {
+            temp.push(value)
+        })
+        temp[rnd] = !temp[rnd]
+        setDown(temp)
+    }
+
+    setTimeout(() => {
+        if (props.softReset) {
+            softReset()
+            props.softReset = false
+        }
+
+        if (props.hardReset) {
+            hardReset()
+            props.hardReset = false
+        }
+    }, 0.5);
     return (
         <>
             <div className="bg">

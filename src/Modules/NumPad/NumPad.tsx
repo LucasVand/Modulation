@@ -5,6 +5,8 @@ import { useState } from 'react'
 interface moduleProp {
     isDone: boolean
     setIsDone: React.Dispatch<React.SetStateAction<boolean>>
+    hardReset: boolean
+    softReset: boolean
 
 }
 
@@ -59,6 +61,48 @@ function NumPad(props: moduleProp) {
         })
         props.setIsDone(flag)
     }
+
+    const hardReset = () => {
+        const t = [false, false, false, false, false, false]
+        const j = [false, false, false, false, false, false, false, false, false]
+        const s = [randomize(), randomize(), randomize(), randomize(), randomize(), randomize()]
+        setIsDown(j)
+        setIsNumDone(t)
+        setScreenNum(s)
+    }
+    const softReset = () => {
+        const temp: number[] = []
+        const temp2: boolean[] = []
+        const temp3: boolean[] = []
+        screenNum.forEach((value, index) => {
+            temp.push(value)
+            temp2.push(isNumDone[index])
+
+        })
+        isDown.forEach((value) => {
+            temp3.push(value)
+        })
+        const rand = Math.round(0 + Math.random() * (5));
+        const v = temp[rand]
+        temp3[v] = false
+        temp[rand] = randomize()
+        temp2[rand] = false
+        setIsDown(temp3)
+        setScreenNum(temp)
+        setIsNumDone(temp2)
+    }
+
+    setTimeout(() => {
+        if (props.softReset) {
+            softReset()
+            props.softReset = false
+        }
+
+        if (props.hardReset) {
+            hardReset()
+            props.hardReset = false
+        }
+    }, 0.5);
 
     return (
         <>

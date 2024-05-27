@@ -5,6 +5,8 @@ import React, { useEffect, useState } from 'react'
 interface toggleProp {
     isDone: boolean
     setIsDone: React.Dispatch<React.SetStateAction<boolean>>
+    hardReset: boolean
+    softReset: boolean
 }
 function Toggle(props: toggleProp) {
     const randomize = () => {
@@ -46,7 +48,16 @@ function Toggle(props: toggleProp) {
         setToggled(temp)
     }
 
-
+    setTimeout(() => {
+        if (props.softReset) {
+            softReset()
+            props.softReset = false
+        }
+        if (props.hardReset) {
+            hardReset()
+            props.hardReset = false
+        }
+    }, 0.5)
     const softReset = () => {
         const rnd = randomize()
         const temp: boolean[] = []

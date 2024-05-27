@@ -37,7 +37,7 @@ function Counter(props: moduleProp) {
 
     const click = (num: number) => {
         const temp: boolean[] = []
-        selctedTick.forEach((value, index) => {
+        selctedTick.forEach((value) => {
             temp.push(value)
         })
         temp[num] = !temp[num]

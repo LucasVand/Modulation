@@ -32,7 +32,7 @@ function Rotation(props: moduleProp) {
     const [selectedTick, setSelectedTick] = useState(0)
 
     const ticks = numbers.map((num) => {
-        const count = num + 1
+
         const w = 200
         const h = w * 1.7
         const cos = Math.cos(((Math.PI * 2) / numbers.length) * num) * w

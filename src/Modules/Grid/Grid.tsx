@@ -75,7 +75,7 @@ function Grid(props: moduleProp) {
         const rnd = Math.round(Math.random() * 8)
         const temp: boolean[] = []
 
-        down.map((value, index) => {
+        down.map((value) => {
             temp.push(value)
         })
         temp[rnd] = !temp[rnd]

@@ -31,7 +31,7 @@ function ModuleView(props: moduleView) {
             <div className='bg'></div>
         )
     }
-    const inter = props
+
     const modules = [
         <Blank></Blank>,
         <Toggle isDone={props.isDone} setIsDone={props.setIsDone} hardReset={props.hardReset} softReset={props.softReset}></Toggle>,

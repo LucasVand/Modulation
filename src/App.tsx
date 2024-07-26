@@ -1,33 +1,46 @@
 
 
-import { useState } from 'react'
+import React, { useState } from 'react'
 
 
 import ModuleView from './ModuleView/ModuleView'
 
+interface ModuleObj {
+  hardreset: [boolean, React.Dispatch<React.SetStateAction<boolean>>]
+  softreset: [boolean, React.Dispatch<React.SetStateAction<boolean>>]
+  isDone: [boolean, React.Dispatch<React.SetStateAction<boolean>>]
+}
+
 function App() {
 
-  const numbers = [0]
-  const hardReset = [false, false, false, false, false, false, false, false, false, false]
-  const softReset = [false, false, false, false, false, false, false, false, false, false]
+  const numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+  const moduleData = numbers.map((num: number) => {
+    const moduleData: ModuleObj = {
+      hardreset: useState(false),
+      softreset: useState(false),
+      isDone: useState(false)
+    }
+    return (
+      moduleData
+    )
+  })
+
   const [isDone, setIsDone] = useState(false)
 
   const modules = numbers.map((num: number) => {
     return (
-      <ModuleView isDone={isDone} setIsDone={setIsDone} hardReset={hardReset[num]} softReset={softReset[num]}></ModuleView>
+      <ModuleView key={"module" + num} moduleNumber={num} isDone={moduleData[num].isDone} hardReset={moduleData[num].hardreset} softReset={moduleData[num].softreset}></ModuleView>
     )
   })
+
   return (
     <>
-      <div className='z'>
-        <div className='sideBar'></div>
-        <div className='moduleCont'>
+      <div className='mainCont'>
+        <div className='sidebar'> </div>
+        <div className='z'>
           {modules}
         </div>
-        <button onClick={() => {
-          softReset[0] = true
-        }}></button>
-
       </div>
 
     </>

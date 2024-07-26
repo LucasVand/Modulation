@@ -8,9 +8,8 @@
     border-color: rgb(50, 50, 50);
     border-width: 3px;
     border-radius: 100%;
+    box-shadow: 2px 2px 2px rgb(20, 20, 20), -2px -2px 2px rgb(40, 40, 40);
 
-    filter: drop-shadow(2px 2px 2px rgb(20, 20, 20)) drop-shadow(-2px -2px 2px rgb(40, 40, 40));
-    -webkit-filter: drop-shadow(2px 2px 2px rgb(20, 20, 20)) drop-shadow(-2px -2px 2px rgb(40, 40, 40));
     position: relative;
 
     margin: 10%;

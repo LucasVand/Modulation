@@ -1,15 +1,8 @@
-import { useState } from 'react'
+import { useId, useState } from 'react'
 import './Grid.css'
+import { ModuleProps } from '../../ModuleView/ModuleView'
 
-interface moduleProp {
-    isDone: boolean
-    setIsDone: React.Dispatch<React.SetStateAction<boolean>>
-    hardReset: boolean
-    softReset: boolean
-
-}
-
-function Grid(props: moduleProp) {
+function Grid(props: ModuleProps) {
     const rndBool = () => {
         return Math.round(Math.random()) == 1 ? true : false
     }
@@ -25,7 +18,7 @@ function Grid(props: moduleProp) {
     const numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8]
     const buttons = numbers.map((num: number) => {
         return (
-            <button className={`gridButton ${down[num] ? 'toggle' : ''}`} onClick={() => click(num)}>
+            <button key={props.moduleNumber + "gridbutton" + num} className={`gridButton ${down[num] ? 'toggle' : ''}`} onClick={() => click(num)}>
                 <Rec></Rec>
             </button>
         )
@@ -33,7 +26,7 @@ function Grid(props: moduleProp) {
 
     const ticks = numbers.map((num) => {
         return (
-            <div className={`gridTick ${correct[num] ? 'toggle' : ''}`}></div>
+            <div key={props.moduleNumber + "gridticks" + num} className={`gridTick ${correct[num] ? 'toggle' : ''}`}></div>
         )
     })
     const click = (num: number) => {
@@ -62,7 +55,7 @@ function Grid(props: moduleProp) {
                 flag = false
             }
         })
-        props.setIsDone(flag)
+        props.isDone[1](flag)
     }
 
     const hardReset = () => {
@@ -83,16 +76,16 @@ function Grid(props: moduleProp) {
     }
 
     setTimeout(() => {
-        if (props.softReset) {
+        if (props.softReset[0] == true) {
             softReset()
-            props.softReset = false
+            props.softReset[1](false)
         }
 
-        if (props.hardReset) {
+        if (props.hardReset[0] == true) {
             hardReset()
-            props.hardReset = false
+            props.hardReset[1](false)
         }
-    }, 0.5);
+    });
     return (
         <>
             <div className="bg">

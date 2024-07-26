@@ -1,15 +1,10 @@
+import { randomNumber } from '../../MiscFiles/RandomGenerator'
+import { ModuleProps } from '../../ModuleView/ModuleView'
 import './Shape.css'
 
 import { useState } from 'react'
-interface moduleProp {
-    isDone: boolean
-    setIsDone: React.Dispatch<React.SetStateAction<boolean>>
-    hardReset: boolean
-    softReset: boolean
 
-}
-
-function Shape(props: moduleProp) {
+function Shape(props: ModuleProps) {
     const Circle = () => (
         <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" className="bi bi-circle-fill" viewBox="0 0 16 16">
             <circle cx="8" cy="8" r="8" />
@@ -40,21 +35,16 @@ function Shape(props: moduleProp) {
             <path d="M6.428 1.151C6.708.591 7.213 0 8 0s1.292.592 1.572 1.151C9.861 1.73 10 2.431 10 3v3.691l5.17 2.585a1.5 1.5 0 0 1 .83 1.342V12a.5.5 0 0 1-.582.493l-5.507-.918-.375 2.253 1.318 1.318A.5.5 0 0 1 10.5 16h-5a.5.5 0 0 1-.354-.854l1.319-1.318-.376-2.253-5.507.918A.5.5 0 0 1 0 12v-1.382a1.5 1.5 0 0 1 .83-1.342L6 6.691V3c0-.568.14-1.271.428-1.849" />
         </svg>
     )
-    const randomize = () => {
-        const min = 0
-        const max = 5
-        const rand = Math.round(min + Math.random() * (max - min));
-        return rand
-    }
+
 
     const icons = [<Pentagon />, <Sun />, <Shield />, <Cloud />, <Circle />, <Airplane />]
     const numbers = [0, 1, 2]
-    const [DisplayShape, setDisplayShape] = useState([0, 0, 0])
-    const [correctShape, setCorrectShape] = useState([randomize(), randomize(), randomize()])
+    const [DisplayShape, setDisplayShape] = useState([randomNumber(0, 5), randomNumber(0, 5), randomNumber(0, 5)])
+    const [correctShape, setCorrectShape] = useState([randomNumber(0, 5), randomNumber(0, 5), randomNumber(0, 5)])
 
     const shapeB = numbers.map((num) => {
         return (
-            <button className={`shapeButton ${DisplayShape[num] == correctShape[num] ? 'toggle' : ''}`} onClick={() => click(num)}>
+            <button key={props.moduleNumber + "shape" + num} className={`shapeButton ${DisplayShape[num] == correctShape[num] ? 'toggle' : ''}`} onClick={() => click(num)}>
                 {icons[DisplayShape[num]]}
             </button>
         )
@@ -83,46 +73,44 @@ function Shape(props: moduleProp) {
                 flag = false
             }
         })
-        props.setIsDone(flag)
+        props.isDone[1](flag)
     }
 
     const hardReset = () => {
         var temp: number[] = []
         correctShape.forEach(() => {
-            const r = randomize()
-            temp.push(r)
+            temp.push(randomNumber(0, 5))
         })
         setCorrectShape(temp);
 
         temp = []
         DisplayShape.forEach(() => {
-            const r = randomize()
-            temp.push(r)
+            temp.push(randomNumber(0, 5))
         })
         setDisplayShape(temp);
     }
     const softReset = () => {
         var temp: number[] = []
-        correctShape.forEach((value) => {
+        DisplayShape.forEach((value) => {
             temp.push(value)
         })
 
         const rand = Math.round(0 + Math.random() * (2));
-        temp[rand] = randomize()
-        setCorrectShape(temp);
+        temp[rand] = randomNumber(0, 5)
+        setDisplayShape(temp);
     }
 
     setTimeout(() => {
-        if (props.softReset) {
+        if (props.softReset[0] == true) {
             softReset()
-            props.softReset = false
+            props.softReset[1](false)
         }
 
-        if (props.hardReset) {
+        if (props.hardReset[0] == true) {
             hardReset()
-            props.hardReset = false
+            props.hardReset[1](false)
         }
-    }, 0.5);
+    });
 
     return (
         <>

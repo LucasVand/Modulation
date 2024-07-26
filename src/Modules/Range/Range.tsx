@@ -1,17 +1,11 @@
+import { ModuleProps } from '../../ModuleView/ModuleView';
 import './Range.css'
 
 import { useState } from 'react'
 
-interface moduleProp {
-    isDone: boolean
-    setIsDone: React.Dispatch<React.SetStateAction<boolean>>
-    hardReset: boolean
-    softReset: boolean
-
-}
 
 
-function Range(props: moduleProp) {
+function Range(props: ModuleProps) {
     const randomize = () => {
         const max = 20
         const rand = Math.round(0 + Math.random() * (max - 0));
@@ -19,13 +13,13 @@ function Range(props: moduleProp) {
     }
     const ArrowDown = () => (
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className="bi bi-arrow-down" viewBox="0 0 16 16">
-            <path fill-rule="evenodd" d="M8 1a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L7.5 13.293V1.5A.5.5 0 0 1 8 1" />
+            <path fillRule="evenodd" d="M8 1a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L7.5 13.293V1.5A.5.5 0 0 1 8 1" />
         </svg>
     )
 
     const ArrowUp = () => (
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className="bi bi-arrow-up" viewBox="0 0 16 16">
-            <path fill-rule="evenodd" d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5" />
+            <path fillRule="evenodd" d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5" />
         </svg>
     )
 
@@ -46,7 +40,7 @@ function Range(props: moduleProp) {
         if (temp == correctNum) {
             flag = true
         }
-        props.setIsDone(flag)
+        props.isDone[1](flag)
 
     }
 
@@ -62,16 +56,16 @@ function Range(props: moduleProp) {
     }
 
     setTimeout(() => {
-        if (props.softReset) {
+        if (props.softReset[0] == true) {
             softReset()
-            props.softReset = false
+            props.softReset[1](false)
         }
 
-        if (props.hardReset) {
+        if (props.hardReset[0] == true) {
             hardReset()
-            props.hardReset = false
+            props.hardReset[1](false)
         }
-    }, 0.5);
+    });
     return (
         <>
             <div className='bg'>

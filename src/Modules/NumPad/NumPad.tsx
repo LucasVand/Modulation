@@ -1,16 +1,9 @@
 
+import { ModuleProps } from '../../ModuleView/ModuleView'
 import './NumPad.css'
-import { useState } from 'react'
+import { useId, useState } from 'react'
 
-interface moduleProp {
-    isDone: boolean
-    setIsDone: React.Dispatch<React.SetStateAction<boolean>>
-    hardReset: boolean
-    softReset: boolean
-
-}
-
-function NumPad(props: moduleProp) {
+function NumPad(props: ModuleProps) {
     const randomize = () => {
         const min = 0
         const max = 8
@@ -24,32 +17,37 @@ function NumPad(props: moduleProp) {
     const [screenNum, setScreenNum] = useState([randomize(), randomize(), randomize(), randomize(), randomize(), randomize()])
 
     const numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8]
-    const tiles = numbers.map((item: number) => {
+    const tiles = numbers.map((item) => {
         return (
-            <button className={`key ${isDown[item] ? 'toggle' : ''}`} onClick={() => click(item)}>{item}</button>
+            <button key={props.moduleNumber + "numpad" + item} className={`key ${isDown[item] ? 'toggle' : ''}`} onClick={() => click(item)}>{item}</button>
         )
     })
 
+
+
     const click = (num: number) => {
-        const temp2 = Array(6)
-        for (let l = 0; l < 6; l++) {
-            temp2[l] = isNumDone[l]
-        }
+        const temp2 = []
+        isNumDone.forEach((value) => {
+            temp2.push(value)
+        })
+        const temp = []
+        isDown.forEach((value) => {
+            temp.push(value)
+        })
         for (let i = 0; i < 6; i++) {
             if (num == screenNum[i]) {
-                const temp = Array(9)
-                for (let l = 0; l < 9; l++) {
-                    temp[l] = isDown[l]
-                }
 
                 temp[num] = true
-                setIsDown(temp)
+
 
                 temp2[i] = true
-                setIsNumDone(temp2)
+
             }
         }
+        setIsDown(temp)
+        setIsNumDone(temp2)
         isDone(temp2)
+
     }
 
     const isDone = (temp: boolean[]) => {
@@ -59,13 +57,13 @@ function NumPad(props: moduleProp) {
                 flag = false
             }
         })
-        props.setIsDone(flag)
+        props.isDone[1](flag)
     }
 
     const hardReset = () => {
         const t = [false, false, false, false, false, false]
         const j = [false, false, false, false, false, false, false, false, false]
-        const s = [randomize(), randomize(), randomize(), randomize(), randomize(), randomize()]
+        const s: number[] = [randomize(), randomize(), randomize(), randomize(), randomize(), randomize()]
         setIsDown(j)
         setIsNumDone(t)
         setScreenNum(s)
@@ -74,44 +72,53 @@ function NumPad(props: moduleProp) {
         const temp: number[] = []
         const temp2: boolean[] = []
         const temp3: boolean[] = []
-        screenNum.forEach((value, index) => {
+        screenNum.forEach((value) => {
             temp.push(value)
-            temp2.push(isNumDone[index])
-
+        })
+        isNumDone.forEach((value) => {
+            temp2.push(value)
         })
         isDown.forEach((value) => {
             temp3.push(value)
         })
-        const rand = Math.round(0 + Math.random() * (5));
+
+        const rand = Math.round(Math.random() * 5);
+
         const v = temp[rand]
         temp3[v] = false
         temp[rand] = randomize()
         temp2[rand] = false
+
         setIsDown(temp3)
         setScreenNum(temp)
         setIsNumDone(temp2)
+
+
     }
 
     setTimeout(() => {
-        if (props.softReset) {
+        if (props.softReset[0] == true) {
             softReset()
-            props.softReset = false
+            props.softReset[1](false)
         }
 
-        if (props.hardReset) {
+        if (props.hardReset[0] == true) {
             hardReset()
-            props.hardReset = false
+            props.hardReset[1](false)
         }
-    }, 0.5);
+    });
+
+    const screenDisplay = screenNum.map((num, index) => {
+        return (
+            <div key={props.moduleNumber + "numpadScreen" + index} className={`screenText ${isNumDone[index] ? 'toggle' : ''}`}>{num}</div>
+        )
+    })
+
 
     return (
         <>
             <div className='bg'>
-                <div className={`screen ${isNumDone.find((num) => num == false) == undefined ? 'toggle' : ''}`}>{screenNum.map((num, index) => {
-                    return (
-                        <p className={`screenText ${isNumDone[index] ? 'toggle' : ''}`}>{num}</p>
-                    )
-                })}</div>
+                <div className={`NumPadScreen ${isNumDone.find((num) => num == false) == undefined ? 'toggle' : ''}`}>{screenDisplay}</div>
 
                 <div className='pad'>
                     {tiles}

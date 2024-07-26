@@ -1,27 +1,29 @@
+import { randomBool, randomNumber } from '../../MiscFiles/RandomGenerator'
+import { ModuleProps } from '../../ModuleView/ModuleView'
 import './Toggle.css'
 
 import React, { useState } from 'react'
 
-interface toggleProp {
-    isDone: boolean
-    setIsDone: React.Dispatch<React.SetStateAction<boolean>>
-    hardReset: boolean
-    softReset: boolean
-}
-function Toggle(props: toggleProp) {
-    const randomize = () => {
-        const min = 0
-        const max = 3
-        const rand = Math.round(min + Math.random() * (max - min));
-        return rand
-    }
+function Toggle(props: ModuleProps) {
+    setTimeout(() => {
+        if (props.softReset[0] == true) {
+            softReset()
+            props.softReset[1](false)
+        }
+        if (props.hardReset[0] == true) {
+            hardReset()
+            props.hardReset[1](false)
+        }
+        console.log(props.hardReset[0])
+    })
+
 
     const toggleNums = [0, 1, 2, 3]
-    const [toggled, setToggled] = useState([false, false, false, false])
+    const [toggled, setToggled] = useState([randomBool(), randomBool(), randomBool(), randomBool()])
 
     const toggles = toggleNums.map((num) => {
         return (
-            <div className={`capsule ${toggled[num] ? 'toggled' : ''}`} >
+            <div key={props.moduleNumber + "toggle" + num} className={`capsule ${toggled[num] ? 'toggled' : ''}`} >
                 <button className={`circle ${toggled[num] ? 'toggled' : ''}`} onClick={() => click(num)}></button>
             </div >
         )
@@ -39,17 +41,17 @@ function Toggle(props: toggleProp) {
                 flag = false
             }
         })
-        props.setIsDone(flag)
+        props.isDone[1](flag)
 
     }
 
     function hardReset() {
-        const temp = [false, false, false, false]
+        const temp = [randomBool(), randomBool(), randomBool(), randomBool()]
         setToggled(temp)
     }
 
     const softReset = () => {
-        const rnd = randomize()
+        const rnd = randomNumber(0, 3)
         const temp: boolean[] = []
         toggled.forEach((value) => {
             temp.push(value)
@@ -58,18 +60,6 @@ function Toggle(props: toggleProp) {
         setToggled(temp)
 
     }
-
-    setTimeout(() => {
-        if (props.softReset) {
-            softReset()
-            props.softReset = false
-        }
-        if (props.hardReset) {
-            hardReset()
-            props.hardReset = false
-        }
-        console.log("called")
-    }, 1)
 
 
     return (

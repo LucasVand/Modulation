@@ -16,9 +16,7 @@
 
     font-size: x-large;
     user-select: none;
-
-    filter: drop-shadow(2px 2px 2px rgb(20, 20, 20)) drop-shadow(-2px -2px 2px rgb(40, 40, 40));
-    -webkit-filter: drop-shadow(2px 2px 2px rgb(20, 20, 20)) drop-shadow(-2px -2px 2px rgb(40, 40, 40));
+    box-shadow: 2px 2px 2px rgb(20, 20, 20), -2px -2px 2px rgb(40, 40, 40);
 
     transition: border-color 1s, color 1s;
     position: relative;
@@ -42,9 +40,6 @@
     border-color: rgb(50, 50, 50);
 
     background-color: rgb(33, 33, 33);
-
-
-
     border-radius: 100%;
     position: absolute;
 

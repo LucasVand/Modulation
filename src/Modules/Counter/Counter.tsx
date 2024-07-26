@@ -2,16 +2,10 @@
 import { useState } from 'react'
 
 import './Counter.css'
+import { ModuleProps } from '../../ModuleView/ModuleView';
 
-interface moduleProp {
-    isDone: boolean
-    setIsDone: React.Dispatch<React.SetStateAction<boolean>>
-    hardReset: boolean
-    softReset: boolean
 
-}
-
-function Counter(props: moduleProp) {
+function Counter(props: ModuleProps) {
 
     const randomize = () => {
         const max = 10
@@ -31,7 +25,7 @@ function Counter(props: moduleProp) {
 
 
         return (
-            <button className={`counterTick ${selctedTick[num] ? 'toggle' : ''}`} style={{ transform: `translate(${cos - 50}%,${sin - 50}%)` }} onClick={() => click(num)}></button>
+            <button key={props.moduleNumber + "counter" + num} className={`counterTick ${selctedTick[num] ? 'toggle' : ''}`} style={{ transform: `translate(${cos - 50}%,${sin - 50}%)` }} onClick={() => click(num)}></button>
         )
     })
 
@@ -63,7 +57,7 @@ function Counter(props: moduleProp) {
         if (count != selectedNum) {
             flag = false
         }
-        props.setIsDone(flag)
+        props.isDone[1](flag)
     }
 
     const hardReset = () => {
@@ -72,7 +66,10 @@ function Counter(props: moduleProp) {
         setSelectedNum(randomize())
     }
     const softReset = () => {
-        const t = [false, false, false, false, false, false, false, false, false, false]
+        const t: boolean[] = []
+        selctedTick.forEach((value) => {
+            t.push(value)
+        })
         const rnd = Math.round(Math.random() * 9)
 
         t[rnd] = !t[rnd]
@@ -80,16 +77,16 @@ function Counter(props: moduleProp) {
     }
 
     setTimeout(() => {
-        if (props.softReset) {
+        if (props.softReset[0] == true) {
             softReset()
-            props.softReset = false
+            props.softReset[1](false)
         }
 
-        if (props.hardReset) {
+        if (props.hardReset[0] == true) {
             hardReset()
-            props.hardReset = false
+            props.hardReset[1](false)
         }
-    }, 0.5);
+    });
     return (
         <>
             <div className='bg'>

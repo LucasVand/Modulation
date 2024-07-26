@@ -1,4 +1,4 @@
-import { SetStateAction, useState } from 'react'
+import { useState } from 'react'
 import Toggle from '../Modules/Toggle/Toggle'
 import Tile from '../Modules/Tile/Tile'
 import Shape from '../Modules/Shape/Shape'

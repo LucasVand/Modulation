@@ -1,7 +1,7 @@
 
 import { ModuleProps } from '../../ModuleView/ModuleView'
 import './NumPad.css'
-import { useId, useState } from 'react'
+import { useState } from 'react'
 
 function NumPad(props: ModuleProps) {
     const randomize = () => {

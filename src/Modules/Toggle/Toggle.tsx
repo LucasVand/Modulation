@@ -2,7 +2,7 @@ import { randomBool, randomNumber } from '../../MiscFiles/RandomGenerator'
 import { ModuleProps } from '../../ModuleView/ModuleView'
 import './Toggle.css'
 
-import React, { useState } from 'react'
+import { useState } from 'react'
 
 function Toggle(props: ModuleProps) {
     setTimeout(() => {

@@ -9,6 +9,7 @@ interface ModuleObj {
   hardreset: [boolean, React.Dispatch<React.SetStateAction<boolean>>]
   softreset: [boolean, React.Dispatch<React.SetStateAction<boolean>>]
   isDone: [boolean, React.Dispatch<React.SetStateAction<boolean>>]
+  moduleNumber: number
 }
 
 function App() {
@@ -19,14 +20,15 @@ function App() {
     const moduleData: ModuleObj = {
       hardreset: useState(false),
       softreset: useState(false),
-      isDone: useState(false)
+      isDone: useState(false),
+      moduleNumber: num
+
     }
     return (
       moduleData
     )
   })
 
-  const [isDone, setIsDone] = useState(false)
 
   const modules = numbers.map((num: number) => {
     return (

@@ -1,15 +1,13 @@
 
+import { randomBool, randomNumber } from '../../MiscFiles/RandomGenerator'
+import { ModuleProps } from '../../ModuleView/ModuleView'
 import './Tile.css'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
-interface moduleProp {
-    isDone: boolean
-    setIsDone: React.Dispatch<React.SetStateAction<boolean>>
+function Tile(props: ModuleProps) {
 
-}
 
-function Tile(props: moduleProp) {
-    const [toggled, setToggled] = useState([false, false, false, false, false, false])
+    const [toggled, setToggled] = useState([randomBool(), randomBool(), randomBool(), randomBool(), randomBool(), randomBool()])
     const numbers = [0, 1, 2, 3, 4, 5, 6, 7]
 
     const clicked = (item: number) => {
@@ -23,7 +21,7 @@ function Tile(props: moduleProp) {
         isDone(temp)
     }
     const tiles = numbers.map((num) => {
-        return (<button className={`tile ${toggled[num] ? 'toggle' : ''}`} onClick={() => clicked(num)} >
+        return (<button key={props.moduleNumber + "tile" + num} className={`tile ${toggled[num] ? 'toggle' : ''}`} onClick={() => clicked(num)} >
             <div className={`innerCircle ${toggled[num] ? 'toggle' : ''}`} />
         </button>)
     })
@@ -34,10 +32,37 @@ function Tile(props: moduleProp) {
                 flag = false
             }
         })
-        props.setIsDone(flag)
-        console.log("Flag: " + flag)
-        console.log(temp.toString())
+        props.isDone[1](flag)
+
     }
+    const hardReset = () => {
+        const temp: boolean[] = []
+        toggled.forEach(() => {
+            temp.push(randomBool())
+        })
+        setToggled(temp)
+    }
+    const softReset = () => {
+        const temp: boolean[] = []
+        toggled.forEach((value) => {
+            temp.push(value)
+        })
+        const r = randomNumber(0, 7)
+        temp[r] = !temp[r]
+        setToggled(temp)
+    }
+
+    useEffect(() => {
+        if (props.softReset[0] == true) {
+            softReset()
+            props.softReset[1](false)
+        }
+        if (props.hardReset[0] == true) {
+            hardReset()
+            props.hardReset[1](false)
+        }
+    }, [props])
+
     return (
         <>
             <div className='bg'>

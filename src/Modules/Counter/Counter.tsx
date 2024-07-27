@@ -1,23 +1,14 @@
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import './Counter.css'
+import { ModuleProps } from '../../ModuleView/ModuleView';
+import { randomNumber } from '../../MiscFiles/RandomGenerator';
 
-interface moduleProp {
-    isDone: boolean
-    setIsDone: React.Dispatch<React.SetStateAction<boolean>>
 
-}
+function Counter(props: ModuleProps) {
 
-function Counter(props: moduleProp) {
-
-    const randomize = () => {
-        const max = 10
-        const rand = Math.round(0 + Math.random() * (max - 0));
-        return rand
-    }
-
-    const [selectedNum, setSelectedNum] = useState(randomize())
+    const [selectedNum, setSelectedNum] = useState(randomNumber(0, 10))
     const [selctedTick, setSelectedTick] = useState([false, false, false, false, false, false, false, false, false, false])
 
     const numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
@@ -29,13 +20,13 @@ function Counter(props: moduleProp) {
 
 
         return (
-            <button className={`counterTick ${selctedTick[num] ? 'toggle' : ''}`} style={{ transform: `translate(${cos - 50}%,${sin - 50}%)` }} onClick={() => click(num)}></button>
+            <button key={props.moduleNumber + "counter" + num} className={`counterTick ${selctedTick[num] ? 'toggle' : ''}`} style={{ transform: `translate(${cos - 50}%,${sin - 50}%)` }} onClick={() => click(num)}></button>
         )
     })
 
     const click = (num: number) => {
         const temp: boolean[] = []
-        selctedTick.forEach((value, index) => {
+        selctedTick.forEach((value) => {
             temp.push(value)
         })
         temp[num] = !temp[num]
@@ -61,8 +52,36 @@ function Counter(props: moduleProp) {
         if (count != selectedNum) {
             flag = false
         }
-        props.setIsDone(flag)
+        props.isDone[1](flag)
     }
+
+    const hardReset = () => {
+        const t = [false, false, false, false, false, false, false, false, false, false]
+        setSelectedTick(t)
+        setSelectedNum(randomNumber(0, 10))
+    }
+    const softReset = () => {
+        const t: boolean[] = []
+        selctedTick.forEach((value) => {
+            t.push(value)
+        })
+        const rnd = Math.round(Math.random() * 9)
+
+        t[rnd] = !t[rnd]
+        setSelectedTick(t)
+    }
+
+    useEffect(() => {
+        if (props.softReset[0] == true) {
+            softReset()
+            props.softReset[1](false)
+        }
+        if (props.hardReset[0] == true) {
+            hardReset()
+            props.hardReset[1](false)
+        }
+
+    }, [props])
     return (
         <>
             <div className='bg'>

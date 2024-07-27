@@ -1,4 +1,4 @@
-import { SetStateAction, useState } from 'react'
+import { useState } from 'react'
 import Toggle from '../Modules/Toggle/Toggle'
 import Tile from '../Modules/Tile/Tile'
 import Shape from '../Modules/Shape/Shape'
@@ -12,14 +12,16 @@ import '../App.css'
 
 
 
-interface moduleView {
-    isDone: boolean
-    setIsDone: React.Dispatch<SetStateAction<boolean>>
+interface ModuleView {
+    isDone: [boolean, React.Dispatch<React.SetStateAction<boolean>>]
+    hardReset: [boolean, React.Dispatch<React.SetStateAction<boolean>>]
+    softReset: [boolean, React.Dispatch<React.SetStateAction<boolean>>]
+    moduleNumber: number
 }
 
-function ModuleView(props: moduleView) {
+function ModuleView(props: ModuleView) {
     const randomize = () => {
-        const min = 0
+        const min = 1
         const max = 9
         const rand = Math.round(min + Math.random() * (max - min));
         return rand
@@ -29,18 +31,18 @@ function ModuleView(props: moduleView) {
             <div className='bg'></div>
         )
     }
+
     const modules = [
         <Blank></Blank>,
-        <Toggle isDone={props.isDone} setIsDone={props.setIsDone}></Toggle>,
-        <Tile isDone={props.isDone} setIsDone={props.setIsDone}></Tile>,
-        <Shape isDone={props.isDone} setIsDone={props.setIsDone}></Shape>,
-        <Rotation isDone={props.isDone} setIsDone={props.setIsDone}></Rotation>,
-        <Range isDone={props.isDone} setIsDone={props.setIsDone}></Range>,
-        <NumPad isDone={props.isDone} setIsDone={props.setIsDone}></NumPad>,
-        <Grid isDone={props.isDone} setIsDone={props.setIsDone}></Grid>,
-        <Counter isDone={props.isDone} setIsDone={props.setIsDone}></Counter>,
-        <Bar isDone={props.isDone} setIsDone={props.setIsDone}></Bar>
-
+        <Toggle isDone={props.isDone} hardReset={props.hardReset} softReset={props.softReset} moduleNumber={props.moduleNumber}></Toggle>,
+        <Tile isDone={props.isDone} hardReset={props.hardReset} softReset={props.softReset} moduleNumber={props.moduleNumber}></Tile>,
+        <Shape isDone={props.isDone} hardReset={props.hardReset} softReset={props.softReset} moduleNumber={props.moduleNumber}></Shape>,
+        <Rotation isDone={props.isDone} hardReset={props.hardReset} softReset={props.softReset} moduleNumber={props.moduleNumber}></Rotation>,
+        <Range isDone={props.isDone} hardReset={props.hardReset} softReset={props.softReset} moduleNumber={props.moduleNumber}></Range>,
+        <NumPad isDone={props.isDone} hardReset={props.hardReset} softReset={props.softReset} moduleNumber={props.moduleNumber}></NumPad>,
+        <Grid isDone={props.isDone} hardReset={props.hardReset} softReset={props.softReset} moduleNumber={props.moduleNumber}></Grid>,
+        <Counter isDone={props.isDone} hardReset={props.hardReset} softReset={props.softReset} moduleNumber={props.moduleNumber}></Counter>,
+        <Bar isDone={props.isDone} hardReset={props.hardReset} softReset={props.softReset} moduleNumber={props.moduleNumber}></Bar>
     ]
     const [moduleNum, setModuleNum] = useState(randomize())
 
@@ -49,9 +51,17 @@ function ModuleView(props: moduleView) {
         <>
             {
                 modules[moduleNum]
+
             }
         </>
     )
+}
+
+export interface ModuleProps {
+    isDone: [boolean, React.Dispatch<React.SetStateAction<boolean>>]
+    hardReset: [boolean, React.Dispatch<React.SetStateAction<boolean>>]
+    softReset: [boolean, React.Dispatch<React.SetStateAction<boolean>>]
+    moduleNumber: number
 }
 
 export default ModuleView

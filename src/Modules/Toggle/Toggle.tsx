@@ -2,10 +2,11 @@ import { randomBool, randomNumber } from '../../MiscFiles/RandomGenerator'
 import { ModuleProps } from '../../ModuleView/ModuleView'
 import './Toggle.css'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 function Toggle(props: ModuleProps) {
-    setTimeout(() => {
+    useEffect(() => {
+
         if (props.softReset[0] == true) {
             softReset()
             props.softReset[1](false)
@@ -14,9 +15,8 @@ function Toggle(props: ModuleProps) {
             hardReset()
             props.hardReset[1](false)
         }
-        console.log(props.hardReset[0])
-    })
 
+    }, [props])
 
     const toggleNums = [0, 1, 2, 3]
     const [toggled, setToggled] = useState([randomBool(), randomBool(), randomBool(), randomBool()])

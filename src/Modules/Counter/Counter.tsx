@@ -1,19 +1,14 @@
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import './Counter.css'
 import { ModuleProps } from '../../ModuleView/ModuleView';
+import { randomNumber } from '../../MiscFiles/RandomGenerator';
 
 
 function Counter(props: ModuleProps) {
 
-    const randomize = () => {
-        const max = 10
-        const rand = Math.round(0 + Math.random() * (max - 0));
-        return rand
-    }
-
-    const [selectedNum, setSelectedNum] = useState(randomize())
+    const [selectedNum, setSelectedNum] = useState(randomNumber(0, 10))
     const [selctedTick, setSelectedTick] = useState([false, false, false, false, false, false, false, false, false, false])
 
     const numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
@@ -63,7 +58,7 @@ function Counter(props: ModuleProps) {
     const hardReset = () => {
         const t = [false, false, false, false, false, false, false, false, false, false]
         setSelectedTick(t)
-        setSelectedNum(randomize())
+        setSelectedNum(randomNumber(0, 10))
     }
     const softReset = () => {
         const t: boolean[] = []
@@ -76,17 +71,17 @@ function Counter(props: ModuleProps) {
         setSelectedTick(t)
     }
 
-    setTimeout(() => {
+    useEffect(() => {
         if (props.softReset[0] == true) {
             softReset()
             props.softReset[1](false)
         }
-
         if (props.hardReset[0] == true) {
             hardReset()
             props.hardReset[1](false)
         }
-    });
+
+    }, [props])
     return (
         <>
             <div className='bg'>

@@ -2,7 +2,7 @@ import { randomNumber } from '../../MiscFiles/RandomGenerator'
 import { ModuleProps } from '../../ModuleView/ModuleView'
 import './Shape.css'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 function Shape(props: ModuleProps) {
     const Circle = () => (
@@ -44,7 +44,10 @@ function Shape(props: ModuleProps) {
 
     const shapeB = numbers.map((num) => {
         return (
-            <button key={props.moduleNumber + "shape" + num} className={`shapeButton ${DisplayShape[num] == correctShape[num] ? 'toggle' : ''}`} onClick={() => click(num)}>
+            <button key={props.moduleNumber + "shape" + num} className={`shapeButton ${DisplayShape[num] == correctShape[num] ? 'toggle' : ''}`} onClick={() => {
+                click(num)
+                console.log("clicked")
+            }}>
                 {icons[DisplayShape[num]]}
             </button>
         )
@@ -99,18 +102,17 @@ function Shape(props: ModuleProps) {
         temp[rand] = randomNumber(0, 5)
         setDisplayShape(temp);
     }
-
-    setTimeout(() => {
+    useEffect(() => {
         if (props.softReset[0] == true) {
             softReset()
             props.softReset[1](false)
         }
-
         if (props.hardReset[0] == true) {
             hardReset()
             props.hardReset[1](false)
         }
-    });
+
+    }, [props])
 
     return (
         <>

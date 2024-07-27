@@ -1,7 +1,7 @@
 import { ModuleProps } from '../../ModuleView/ModuleView'
 import './Bar.css'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 interface barProp {
     setBothDone: React.Dispatch<React.SetStateAction<boolean[]>>
@@ -76,17 +76,16 @@ function BarSection(props: barProp) {
         setTickOn(t)
     }
 
-    setTimeout(() => {
+    useEffect(() => {
         if (props.softReset[0] == true) {
             softReset()
             props.softReset[1](false)
         }
-
         if (props.hardReset[0] == true) {
             hardReset()
             props.hardReset[1](false)
         }
-    });
+    }, [props])
 
     return (
         <div className='barCont'>
@@ -113,7 +112,7 @@ function Bar(props: ModuleProps) {
         props.isDone[1](flag)
     }
 
-    setTimeout(() => {
+    useEffect(() => {
         if (props.softReset[0] == true) {
             const r: number = Math.round(Math.random())
             softR[r][1](true)
@@ -125,8 +124,7 @@ function Bar(props: ModuleProps) {
             hardR[1][1](true)
             props.hardReset[1](false)
         }
-    });
-
+    }, [props])
 
 
 

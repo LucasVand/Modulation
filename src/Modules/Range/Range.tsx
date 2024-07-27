@@ -1,16 +1,13 @@
+import { randomNumber } from '../../MiscFiles/RandomGenerator';
 import { ModuleProps } from '../../ModuleView/ModuleView';
 import './Range.css'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 
 
 function Range(props: ModuleProps) {
-    const randomize = () => {
-        const max = 20
-        const rand = Math.round(0 + Math.random() * (max - 0));
-        return rand
-    }
+
     const ArrowDown = () => (
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className="bi bi-arrow-down" viewBox="0 0 16 16">
             <path fillRule="evenodd" d="M8 1a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L7.5 13.293V1.5A.5.5 0 0 1 8 1" />
@@ -23,7 +20,7 @@ function Range(props: ModuleProps) {
         </svg>
     )
 
-    const [correctNum, setCorrectNum] = useState(randomize())
+    const [correctNum, setCorrectNum] = useState(randomNumber(0, 20))
     const [displayNum, setDisplayNum] = useState(10)
 
     const click = (add: number) => {
@@ -45,9 +42,9 @@ function Range(props: ModuleProps) {
     }
 
     const hardReset = () => {
-        var temp = randomize()
+        var temp = randomNumber(0, 20)
         setCorrectNum(temp)
-        temp = randomize()
+        temp = randomNumber(0, 20)
         setDisplayNum(temp)
     }
     const softReset = () => {
@@ -55,17 +52,17 @@ function Range(props: ModuleProps) {
         setDisplayNum(temp)
     }
 
-    setTimeout(() => {
+    useEffect(() => {
         if (props.softReset[0] == true) {
             softReset()
             props.softReset[1](false)
         }
-
         if (props.hardReset[0] == true) {
             hardReset()
             props.hardReset[1](false)
         }
-    });
+
+    }, [props])
     return (
         <>
             <div className='bg'>

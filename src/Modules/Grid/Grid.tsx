@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import './Grid.css'
 import { ModuleProps } from '../../ModuleView/ModuleView'
 
@@ -74,18 +74,17 @@ function Grid(props: ModuleProps) {
         temp[rnd] = !temp[rnd]
         setDown(temp)
     }
-
-    setTimeout(() => {
+    useEffect(() => {
         if (props.softReset[0] == true) {
             softReset()
             props.softReset[1](false)
         }
-
         if (props.hardReset[0] == true) {
             hardReset()
             props.hardReset[1](false)
         }
-    });
+
+    }, [props])
     return (
         <>
             <div className="bg">

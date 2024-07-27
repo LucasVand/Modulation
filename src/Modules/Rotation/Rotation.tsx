@@ -1,8 +1,9 @@
+import { randomNumber } from '../../MiscFiles/RandomGenerator'
 import { ModuleProps } from '../../ModuleView/ModuleView'
 import './Rotation.css'
 
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 
 function Rotation(props: ModuleProps) {
@@ -14,16 +15,11 @@ function Rotation(props: ModuleProps) {
             </svg>
         )
     }
-    const randomize = () => {
-        const min = 0
-        const max = 9
-        const rand = Math.round(min + Math.random() * (max - min));
-        return rand
-    }
+
 
 
     const numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
-    const [correctTick, setCorrectTick] = useState(randomize())
+    const [correctTick, setCorrectTick] = useState(randomNumber(0, 9))
     const [selectedTick, setSelectedTick] = useState(0)
 
     const ticks = numbers.map((num) => {
@@ -73,27 +69,26 @@ function Rotation(props: ModuleProps) {
     }
 
     const hardReset = () => {
-        var temp = randomize()
+        var temp = randomNumber(0, 9)
         setSelectedTick(temp)
-        temp = randomize()
+        temp = randomNumber(0, 9)
         setCorrectTick(temp)
     }
     const softReset = () => {
-        var temp = randomize()
+        var temp = randomNumber(0, 9)
         setSelectedTick(temp)
     }
-
-    setTimeout(() => {
+    useEffect(() => {
         if (props.softReset[0] == true) {
             softReset()
             props.softReset[1](false)
         }
-
         if (props.hardReset[0] == true) {
             hardReset()
             props.hardReset[1](false)
         }
-    });
+
+    }, [props])
     return (
         <>
             <div className='bg'>

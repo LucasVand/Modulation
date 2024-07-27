@@ -2,7 +2,7 @@
 import { randomBool, randomNumber } from '../../MiscFiles/RandomGenerator'
 import { ModuleProps } from '../../ModuleView/ModuleView'
 import './Tile.css'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 function Tile(props: ModuleProps) {
 
@@ -33,6 +33,7 @@ function Tile(props: ModuleProps) {
             }
         })
         props.isDone[1](flag)
+
     }
     const hardReset = () => {
         const temp: boolean[] = []
@@ -51,18 +52,16 @@ function Tile(props: ModuleProps) {
         setToggled(temp)
     }
 
-    setTimeout(() => {
+    useEffect(() => {
         if (props.softReset[0] == true) {
             softReset()
             props.softReset[1](false)
         }
-
         if (props.hardReset[0] == true) {
             hardReset()
             props.hardReset[1](false)
         }
-    });
-
+    }, [props])
 
     return (
         <>

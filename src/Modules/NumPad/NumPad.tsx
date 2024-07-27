@@ -1,7 +1,7 @@
 
 import { ModuleProps } from '../../ModuleView/ModuleView'
 import './NumPad.css'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 function NumPad(props: ModuleProps) {
     const randomize = () => {
@@ -96,17 +96,17 @@ function NumPad(props: ModuleProps) {
 
     }
 
-    setTimeout(() => {
+    useEffect(() => {
         if (props.softReset[0] == true) {
             softReset()
             props.softReset[1](false)
         }
-
         if (props.hardReset[0] == true) {
             hardReset()
             props.hardReset[1](false)
         }
-    });
+
+    }, [props])
 
     const screenDisplay = screenNum.map((num, index) => {
         return (

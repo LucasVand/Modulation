@@ -51,6 +51,7 @@ function ModuleView(props: ModuleView) {
         <>
             {
                 modules[moduleNum]
+
             }
         </>
     )

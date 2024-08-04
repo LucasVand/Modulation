@@ -1,103 +1,112 @@
 
 
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 
 import ModuleView from './ModuleView/ModuleView'
 import SideBar from './MiscFiles/SideBar/SideBar'
 import { randomNumber } from './MiscFiles/RandomGenerator'
+import { ModuleData, modulesNotDone } from './MiscFiles/MiscFuncs'
 
-interface ModuleObj {
-  hardreset: [boolean, React.Dispatch<React.SetStateAction<boolean>>]
-  softreset: [boolean, React.Dispatch<React.SetStateAction<boolean>>]
-  isDone: [boolean, React.Dispatch<React.SetStateAction<boolean>>]
-  moduleNumber: number
-}
 
 function App() {
 
+
   const numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 
-  const moduleData = numbers.map((num: number) => {
-    const moduleData: ModuleObj = {
-      hardreset: useState(false),
-      softreset: useState(false),
-      isDone: useState(false),
-      moduleNumber: num
-
-    }
-    return (
-      moduleData
-    )
+  var moduleData = numbers.map((value) => {
+    var m: ModuleData = new ModuleData(value)
+    return m
   })
 
   const progress = useState(0.0)
   const time = useState(0)
-  const addNumber = useState(0)
+
+  const progressBarGracePeriodCounter = useState(0)
+
+
+  const moduleRandomizationCounter = useState(0)
+  const moduleRandomizationMaxCount = useState(30)
+
+
+  useEffect(() => {
+
+    const intervalFast = setInterval(() => {
+
+      time[1]((value) => value + 0.2)
+      progressBarGracePeriodCounter[1]((value) => value + 0.2)
+
+      if (progressBarGracePeriodCounter[0] > 10) {
+        gameLogic()
+      }
+
+    }, 200)
+
+    return () => {
+      clearInterval(intervalFast)
+    };
+  }, [moduleData]);
 
 
   const randomizeModule = () => {
-    const rnd = randomNumber(0, numbers.length - 1)
-    moduleData[rnd].softreset[1](true)
 
+    const rnd = randomNumber(0, moduleData.length - 1)
+    moduleData[rnd].softreset[1]((value) => !value)
   }
-  useEffect(() => {
+  // const getDone = () => {
+  //   var s = '['
+  //   for (let i = 0; i < moduleData.length - 1; i++) {
+  //     s += moduleData[i].isDone[0] + ', '
+  //   }
+  //   s += moduleData[moduleData.length - 1].isDone[0] + ']'
+  //   return s
+  // }
 
-    const intervalSlow = setInterval(() => {
-      updateModules()
-      gameLogic()
+  const getAddAmount = () => {
+    const unsolvedAmountAddition = 0.00007
+    const solvedAmountSubtraction = 0.0003
+    var addAmount = 0.001
 
-    }, 1000)
+    addAmount = Math.pow(modulesNotDone(moduleData), 2) * unsolvedAmountAddition + 0.004
 
-    return () => {
-      clearInterval(intervalSlow)
-    };
-  }, []);
+    if (modulesNotDone(moduleData) == 0) {
+      addAmount = -solvedAmountSubtraction
+    }
+    return addAmount
+  }
 
-  var moduleCount = 0
   const updateModules = () => {
-    time[1]((value) => value + 1)
 
-    moduleCount++
-    if (moduleCount > 10) {
-      moduleCount = 0
+    moduleRandomizationCounter[1]((value) => value + 1)
+    if (moduleRandomizationCounter[0] > moduleRandomizationMaxCount[0]) {
+      moduleRandomizationCounter[1](0)
+      moduleRandomizationMaxCount[1]((value) => value - 1 > 2 ? value - 1 : 2)
       randomizeModule()
     }
 
-    if (randomNumber(0, 10) == 1) {
-      moduleCount = 0
+    if (randomNumber(0, 30) == 1) {
+
       randomizeModule()
     }
-
   }
 
 
   const gameLogic = () => {
-    var unsolvedAmountAddition = 0.003
-    var solvedAmountSubtraction = 0.001
-    var addAmount = 0
-    moduleData.forEach((value) => {
-      if (!value.isDone[0]) {
-        addAmount += unsolvedAmountAddition
-      }
-      else {
-        addAmount -= solvedAmountSubtraction
-      }
 
-    })
     progress[1]((value) => {
-      var newValue = addAmount + value
+      var newValue = getAddAmount() + value
       if (newValue > 1) {
         newValue = 1
       }
       return newValue
     })
 
-    addNumber[1](addAmount)
+
+    updateModules()
   }
 
 
-  const modules = numbers.map((num: number) => {
+  const modules = moduleData.map((_, num: number) => {
     return (
       <ModuleView key={"module" + num} moduleNumber={num} isDone={moduleData[num].isDone} hardReset={moduleData[num].hardreset} softReset={moduleData[num].softreset}></ModuleView>
     )
@@ -107,8 +116,10 @@ function App() {
     <>
       <div className='mainCont'>
         <div className='sidebar'>
-          <SideBar time={time[0]} progress={progress[0]}></SideBar>
-          {addNumber[0]}
+          <SideBar time={Math.floor(time[0])} progress={progress[0]} moduleData={moduleData}></SideBar>
+
+
+
         </div>
         <div className='z'>
           {modules}

@@ -12,6 +12,14 @@ function Counter(props: ModuleProps) {
     const [selctedTick, setSelectedTick] = useState([false, false, false, false, false, false, false, false, false, false])
 
     const numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+    useEffect(() => {
+        softReset()
+    }, [props.softReset[0]])
+    useEffect(() => {
+        hardReset()
+    }, [props.hardReset[0]])
+
     const ticks = numbers.map((num) => {
         const w = 225
         const h = w * 1
@@ -59,6 +67,7 @@ function Counter(props: ModuleProps) {
         const t = [false, false, false, false, false, false, false, false, false, false]
         setSelectedTick(t)
         setSelectedNum(randomNumber(0, 10))
+        isDone(t)
     }
     const softReset = () => {
         const t: boolean[] = []
@@ -69,19 +78,10 @@ function Counter(props: ModuleProps) {
 
         t[rnd] = !t[rnd]
         setSelectedTick(t)
+        isDone(t)
     }
 
-    useEffect(() => {
-        if (props.softReset[0] == true) {
-            softReset()
-            props.softReset[1](false)
-        }
-        if (props.hardReset[0] == true) {
-            hardReset()
-            props.hardReset[1](false)
-        }
 
-    }, [props])
     return (
         <>
             <div className='bg'>

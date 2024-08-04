@@ -10,6 +10,13 @@ function Tile(props: ModuleProps) {
     const [toggled, setToggled] = useState([randomBool(), randomBool(), randomBool(), randomBool(), randomBool(), randomBool()])
     const numbers = [0, 1, 2, 3, 4, 5, 6, 7]
 
+    useEffect(() => {
+        softReset()
+    }, [props.softReset[0]])
+    useEffect(() => {
+        hardReset()
+    }, [props.hardReset[0]])
+
     const clicked = (item: number) => {
         var temp: boolean[] = []
         toggled.forEach((value) => {
@@ -41,6 +48,7 @@ function Tile(props: ModuleProps) {
             temp.push(randomBool())
         })
         setToggled(temp)
+        isDone(temp)
     }
     const softReset = () => {
         const temp: boolean[] = []
@@ -50,18 +58,9 @@ function Tile(props: ModuleProps) {
         const r = randomNumber(0, 7)
         temp[r] = !temp[r]
         setToggled(temp)
+        isDone(temp)
     }
 
-    useEffect(() => {
-        if (props.softReset[0] == true) {
-            softReset()
-            props.softReset[1](false)
-        }
-        if (props.hardReset[0] == true) {
-            hardReset()
-            props.hardReset[1](false)
-        }
-    }, [props])
 
     return (
         <>

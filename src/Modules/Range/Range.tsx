@@ -23,6 +23,13 @@ function Range(props: ModuleProps) {
     const [correctNum, setCorrectNum] = useState(randomNumber(0, 20))
     const [displayNum, setDisplayNum] = useState(10)
 
+    useEffect(() => {
+        softReset()
+    }, [props.softReset[0]])
+    useEffect(() => {
+        hardReset()
+    }, [props.hardReset[0]])
+
     const click = (add: number) => {
 
         const newNum = displayNum + add
@@ -46,23 +53,13 @@ function Range(props: ModuleProps) {
         setCorrectNum(temp)
         temp = randomNumber(0, 20)
         setDisplayNum(temp)
+        isDone(temp)
     }
     const softReset = () => {
         var temp = displayNum + (Math.round(Math.random()) == 1 ? -1 : 1)
         setDisplayNum(temp)
+        isDone(temp)
     }
-
-    useEffect(() => {
-        if (props.softReset[0] == true) {
-            softReset()
-            props.softReset[1](false)
-        }
-        if (props.hardReset[0] == true) {
-            hardReset()
-            props.hardReset[1](false)
-        }
-
-    }, [props])
     return (
         <>
             <div className='bg'>

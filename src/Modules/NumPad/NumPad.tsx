@@ -17,6 +17,14 @@ function NumPad(props: ModuleProps) {
     const [screenNum, setScreenNum] = useState([randomize(), randomize(), randomize(), randomize(), randomize(), randomize()])
 
     const numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8]
+
+    useEffect(() => {
+        softReset()
+    }, [props.softReset[0]])
+    useEffect(() => {
+        hardReset()
+    }, [props.hardReset[0]])
+
     const tiles = numbers.map((item) => {
         return (
             <button key={props.moduleNumber + "numpad" + item} className={`key ${isDown[item] ? 'toggle' : ''}`} onClick={() => click(item)}>{item}</button>
@@ -67,6 +75,7 @@ function NumPad(props: ModuleProps) {
         setIsDown(j)
         setIsNumDone(t)
         setScreenNum(s)
+        isDone(t)
     }
     const softReset = () => {
         const temp: number[] = []
@@ -93,20 +102,9 @@ function NumPad(props: ModuleProps) {
         setScreenNum(temp)
         setIsNumDone(temp2)
 
-
+        isDone(temp2)
     }
 
-    useEffect(() => {
-        if (props.softReset[0] == true) {
-            softReset()
-            props.softReset[1](false)
-        }
-        if (props.hardReset[0] == true) {
-            hardReset()
-            props.hardReset[1](false)
-        }
-
-    }, [props])
 
     const screenDisplay = screenNum.map((num, index) => {
         return (

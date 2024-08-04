@@ -70,22 +70,20 @@ function BarSection(props: barProp) {
         const t = [false, false, false, false, false, false, false, false, false, false, false]
         setTickOn(t)
         setCorrect(randomize())
+        isDone(t)
     }
     const softReset = () => {
         const t = [false, false, false, false, false, false, false, false, false, false, false]
         setTickOn(t)
+        isDone(t)
     }
 
     useEffect(() => {
-        if (props.softReset[0] == true) {
-            softReset()
-            props.softReset[1](false)
-        }
-        if (props.hardReset[0] == true) {
-            hardReset()
-            props.hardReset[1](false)
-        }
-    }, [props])
+        softReset()
+    }, [props.softReset[0]])
+    useEffect(() => {
+        hardReset()
+    }, [props.hardReset[0]])
 
     return (
         <div className='barCont'>
@@ -113,18 +111,15 @@ function Bar(props: ModuleProps) {
     }
 
     useEffect(() => {
-        if (props.softReset[0] == true) {
-            const r: number = Math.round(Math.random())
-            softR[r][1](true)
-            props.softReset[1](false)
-        }
-
-        if (props.hardReset[0] == true) {
-            hardR[0][1](true)
-            hardR[1][1](true)
-            props.hardReset[1](false)
-        }
-    }, [props])
+        const r: number = Math.round(Math.random())
+        softR[r][1](true)
+        props.softReset[1](false)
+    }, [props.softReset[0]])
+    useEffect(() => {
+        hardR[0][1](true)
+        hardR[1][1](true)
+        props.hardReset[1](false)
+    }, [props.hardReset[0]])
 
 
 

@@ -6,17 +6,11 @@ import { useEffect, useState } from 'react'
 
 function Toggle(props: ModuleProps) {
     useEffect(() => {
-
-        if (props.softReset[0] == true) {
-            softReset()
-            props.softReset[1](false)
-        }
-        if (props.hardReset[0] == true) {
-            hardReset()
-            props.hardReset[1](false)
-        }
-
-    }, [props])
+        softReset()
+    }, [props.softReset[0]])
+    useEffect(() => {
+        hardReset()
+    }, [props.hardReset[0]])
 
     const toggleNums = [0, 1, 2, 3]
     const [toggled, setToggled] = useState([randomBool(), randomBool(), randomBool(), randomBool()])
@@ -48,6 +42,7 @@ function Toggle(props: ModuleProps) {
     function hardReset() {
         const temp = [randomBool(), randomBool(), randomBool(), randomBool()]
         setToggled(temp)
+        isDone(temp)
     }
 
     const softReset = () => {
@@ -58,7 +53,7 @@ function Toggle(props: ModuleProps) {
         })
         temp[rnd] = !temp[rnd]
         setToggled(temp)
-
+        isDone(temp)
     }
 
 

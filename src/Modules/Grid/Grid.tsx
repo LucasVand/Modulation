@@ -16,6 +16,14 @@ function Grid(props: ModuleProps) {
     const [down, setDown] = useState([false, false, false, false, false, false, false, false, false])
     const [correct, setCorrect] = useState([rndBool(), rndBool(), rndBool(), rndBool(), rndBool(), rndBool(), rndBool(), rndBool(), rndBool()])
     const numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8]
+
+    useEffect(() => {
+        softReset()
+    }, [props.softReset[0]])
+    useEffect(() => {
+        hardReset()
+    }, [props.hardReset[0]])
+
     const buttons = numbers.map((num: number) => {
         return (
             <button key={props.moduleNumber + "gridbutton" + num} className={`gridButton ${down[num] ? 'toggle' : ''}`} onClick={() => click(num)}>
@@ -63,6 +71,7 @@ function Grid(props: ModuleProps) {
         const d = [rndBool(), rndBool(), rndBool(), rndBool(), rndBool(), rndBool(), rndBool(), rndBool(), rndBool()]
         setCorrect(d)
         setDown(t)
+        propsIsDone(t)
     }
     const softReset = () => {
         const rnd = Math.round(Math.random() * 8)
@@ -73,18 +82,9 @@ function Grid(props: ModuleProps) {
         })
         temp[rnd] = !temp[rnd]
         setDown(temp)
+        propsIsDone(temp)
     }
-    useEffect(() => {
-        if (props.softReset[0] == true) {
-            softReset()
-            props.softReset[1](false)
-        }
-        if (props.hardReset[0] == true) {
-            hardReset()
-            props.hardReset[1](false)
-        }
 
-    }, [props])
     return (
         <>
             <div className="bg">

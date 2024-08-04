@@ -42,11 +42,18 @@ function Shape(props: ModuleProps) {
     const [DisplayShape, setDisplayShape] = useState([randomNumber(0, 5), randomNumber(0, 5), randomNumber(0, 5)])
     const [correctShape, setCorrectShape] = useState([randomNumber(0, 5), randomNumber(0, 5), randomNumber(0, 5)])
 
+    useEffect(() => {
+        softReset()
+    }, [props.softReset[0]])
+    useEffect(() => {
+        hardReset()
+    }, [props.hardReset[0]])
+
     const shapeB = numbers.map((num) => {
         return (
             <button key={props.moduleNumber + "shape" + num} className={`shapeButton ${DisplayShape[num] == correctShape[num] ? 'toggle' : ''}`} onClick={() => {
                 click(num)
-                console.log("clicked")
+
             }}>
                 {icons[DisplayShape[num]]}
             </button>
@@ -91,6 +98,7 @@ function Shape(props: ModuleProps) {
             temp.push(randomNumber(0, 5))
         })
         setDisplayShape(temp);
+        isDone(temp)
     }
     const softReset = () => {
         var temp: number[] = []
@@ -101,18 +109,9 @@ function Shape(props: ModuleProps) {
         const rand = Math.round(0 + Math.random() * (2));
         temp[rand] = randomNumber(0, 5)
         setDisplayShape(temp);
+        isDone(temp)
     }
-    useEffect(() => {
-        if (props.softReset[0] == true) {
-            softReset()
-            props.softReset[1](false)
-        }
-        if (props.hardReset[0] == true) {
-            hardReset()
-            props.hardReset[1](false)
-        }
 
-    }, [props])
 
     return (
         <>

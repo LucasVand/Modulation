@@ -22,6 +22,13 @@ function Rotation(props: ModuleProps) {
     const [correctTick, setCorrectTick] = useState(randomNumber(0, 9))
     const [selectedTick, setSelectedTick] = useState(0)
 
+    useEffect(() => {
+        softReset()
+    }, [props.softReset[0]])
+    useEffect(() => {
+        hardReset()
+    }, [props.hardReset[0]])
+
     const ticks = numbers.map((num) => {
 
         const w = 200
@@ -71,24 +78,16 @@ function Rotation(props: ModuleProps) {
     const hardReset = () => {
         var temp = randomNumber(0, 9)
         setSelectedTick(temp)
-        temp = randomNumber(0, 9)
+        temp = randomNumber(1, 9)
         setCorrectTick(temp)
+        isDone(temp)
     }
     const softReset = () => {
         var temp = randomNumber(0, 9)
         setSelectedTick(temp)
+        isDone(temp)
     }
-    useEffect(() => {
-        if (props.softReset[0] == true) {
-            softReset()
-            props.softReset[1](false)
-        }
-        if (props.hardReset[0] == true) {
-            hardReset()
-            props.hardReset[1](false)
-        }
 
-    }, [props])
     return (
         <>
             <div className='bg'>

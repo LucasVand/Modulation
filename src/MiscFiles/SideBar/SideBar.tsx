@@ -1,8 +1,11 @@
+
+import { ModuleData, modulesDone } from '../MiscFuncs'
 import './SideBar.css'
 
 interface SideBarProps {
     time: number
     progress: number
+    moduleData: ModuleData[]
 }
 function SideBar(props: SideBarProps) {
     const formatTime = (): String => {
@@ -47,11 +50,22 @@ function SideBar(props: SideBarProps) {
     }
 
 
+    const modulesDoneDisplayTick = props.moduleData.map((value) => {
+
+        return (
+            <div className={`modulesDoneDisplayTick ${value.moduleNumber < modulesDone(props.moduleData) ? 'toggle' : ''}`}> </div>
+        )
+    })
+
+
     return (
         <>
             <div className='timeDisplay'>{formatTime()}</div>
             <div className='progressBarBG'>
                 <div className='progressBar' style={{ height: `${computeProgressHeight()}%`, top: `${computeProgressTop()}%` }}></div>
+            </div>
+            <div className='modulesDoneDisplayCont'>
+                {modulesDoneDisplayTick}
             </div>
         </>
     )

@@ -1,0 +1,85 @@
+.rangeButton {
+    border-style: solid;
+    border-color: rgb(50, 50, 50);
+    border-width: 3px;
+    background-color: rgb(33, 33, 33);
+    border-radius: 15%/23%;
+
+    margin: 10%;
+
+    width: 40%;
+    aspect-ratio: 2/1.3;
+
+
+
+    font-size: 1.9cqh;
+    transition: border-color 0.25s;
+    transition: color 0.25s;
+
+    box-shadow: 2px 2px 2px rgb(20, 20, 20), -2px -2px 2px rgb(40, 40, 40);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    color: white;
+
+    transition: scale 0.35s;
+}
+
+.rangeButton:hover {
+    border-color: #747bff;
+}
+
+.rangeButton:active {
+    scale: 0.95;
+}
+
+.rangeButton.toggle {
+    color: #747bff;
+
+}
+
+
+.centerRangeDisplay {
+    width: 40%;
+    aspect-ratio: 1/1;
+
+    border-style: solid;
+    border-color: rgb(50, 50, 50);
+    border-width: 3px;
+    background-color: rgb(33, 33, 33);
+    border-radius: 50%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 600;
+
+    font-size: x-large;
+
+    box-shadow: 2px 2px 2px rgb(20, 20, 20), -2px -2px 2px rgb(40, 40, 40);
+    transition: border-color 1s, color 1s;
+}
+
+.centerRangeDisplay.toggle {
+    border-color: #747bff;
+    animation: incrimentNumAni 1s;
+    color: #747bff;
+}
+
+
+
+@keyframes incrimentNumAni {
+    0% {
+        scale: 1;
+    }
+
+    50% {
+        scale: 1.1;
+    }
+
+    100% {
+        scale: 1;
+    }
+}

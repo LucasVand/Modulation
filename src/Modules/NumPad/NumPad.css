@@ -1,0 +1,92 @@
+.key {
+    border-style: solid;
+    border-color: rgb(50, 50, 50);
+    border-width: 3px;
+    background-color: rgb(33, 33, 33);
+    border-radius: 20%;
+    padding: 20%;
+    margin: 10%;
+
+    aspect-ratio: 1/1;
+    font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+    font-size: 1.9cqh;
+    transition: border-color 0.25s;
+    transition: color 0.25s, scale 0.35s;
+    color: white;
+
+    box-shadow: 2px 2px 2px rgb(20, 20, 20), -2px -2px 2px rgb(40, 40, 40);
+}
+
+.key.toggle {
+    border-color: #747bff;
+    color: #747bff;
+}
+
+.key:hover {
+    border-color: #747bff;
+}
+
+.key:active {
+    scale: 0.95;
+}
+
+.pad {
+
+    font-weight: 400;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    justify-content: center;
+    align-items: center;
+    height: 50%;
+    width: 80%;
+
+    margin-bottom: 21%;
+
+}
+
+.NumPadScreen {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-direction: row;
+    background-color: rgb(33, 33, 33);
+    padding-left: 10%;
+    padding-right: 10%;
+
+    border-radius: 15%/60%;
+
+    width: 60%;
+    height: 15%;
+
+    margin: 7%;
+
+    border-style: solid;
+    border-color: rgb(50, 50, 50);
+    border-width: 3px;
+
+    transition: border-color 1s;
+
+    box-shadow: 2px 2px 2px rgb(20, 20, 20), -2px -2px 2px rgb(40, 40, 40);
+
+
+}
+
+.screen.toggle {
+    border-color: #747bff;
+}
+
+.screenText {
+    color: white;
+    transition: color 0.5s;
+    margin-left: 2%;
+    margin-right: 2%;
+    font-size: 2.1cqh;
+    font-weight: 600;
+
+}
+
+.screenText.toggle {
+    color: #747bff;
+}

@@ -1,0 +1,119 @@
+.center {
+
+    background-color: rgb(33, 33, 33);
+    height: 45%;
+    aspect-ratio: 1/1;
+
+    border-style: solid;
+    border-color: rgb(50, 50, 50);
+    border-width: 3px;
+    border-radius: 100%;
+    box-shadow: 2px 2px 2px rgb(20, 20, 20), -2px -2px 2px rgb(40, 40, 40);
+
+    position: relative;
+
+    margin: 10%;
+}
+
+.tick {
+    background-color: rgb(50, 50, 50);
+    height: 8%;
+    aspect-ratio: 1.7/1;
+
+    border-radius: 40%/60%;
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+}
+
+.tick.toggle {
+    background-color: #747bff;
+}
+
+.rotationButton {
+    width: 65%;
+    aspect-ratio: 3.5/1;
+
+    border-radius: 10%/35%;
+
+    background-color: rgb(33, 33, 33);
+
+    border-style: solid;
+    border-color: rgb(50, 50, 50);
+    border-width: 3px;
+
+    box-shadow: -3px -3px 5px rgb(40, 40, 40),
+        3px 3px 5px rgb(20, 20, 20);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    margin-top: 10%;
+    transition: scale 0.35s, color 0.7s;
+    padding-top: 1.5%;
+
+
+}
+
+.rotationButton.toggle {
+    color: #747bff;
+    border-color: #747bff;
+}
+
+.rotationButton:hover {
+    border-color: #747bff;
+}
+
+.rotationButton:active {
+    scale: 0.95;
+}
+
+
+
+.rotator {
+    height: 13%;
+    width: 13%;
+    border-radius: 100%;
+
+    background-color: rgb(33, 33, 33);
+
+    border-style: solid;
+    border-color: rgb(50, 50, 50);
+    border-width: 3px;
+
+    position: absolute;
+    left: 50%;
+    top: 50%;
+
+    transition: 0.35s ease-in-out;
+
+
+    box-shadow: -3px -3px 5px rgb(40, 40, 40),
+        3px 3px 5px rgb(20, 20, 20);
+}
+
+.rotator.toggle {
+    border-color: #747bff;
+}
+
+.rotationRing {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    border-radius: 50%;
+
+    width: 65%;
+    background-color: rgb(33, 33, 33);
+    aspect-ratio: 1/1;
+    border-width: 50%;
+
+    border-width: 10px;
+    border-color: rgb(50, 50, 50);
+    border-style: solid;
+
+    box-shadow: -3px -3px 5px rgb(40, 40, 40),
+        3px 3px 5px rgb(20, 20, 20);
+
+}

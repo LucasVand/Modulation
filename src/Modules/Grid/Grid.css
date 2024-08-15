@@ -1,0 +1,96 @@
+.gridDisplayCont {
+    width: 80%;
+    height: 34%;
+
+    background-color: rgb(33, 33, 33);
+
+    border-style: solid;
+    border-color: rgb(50, 50, 50);
+    border-width: 3px;
+    background-color: rgb(33, 33, 33);
+    border-radius: 15%/35%;
+
+    box-shadow: -3px -3px 5px rgb(40, 40, 40),
+        3px 3px 5px rgb(20, 20, 20);
+    margin-top: 8%;
+    margin-bottom: 6%;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    align-items: center;
+
+    transition: border-color 0.5s;
+
+    padding-top: 2%;
+    padding-bottom: 2%;
+}
+
+.gridDisplayCont.toggle {
+    border-color: #747bff;
+}
+
+.gridButtonCont {
+    width: 80%;
+    height: 90%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 5%;
+}
+
+.gridButton {
+
+    width: 75%;
+    height: 80%;
+    background-color: rgb(33, 33, 33);
+
+    border-style: solid;
+    border-color: rgb(50, 50, 50);
+    border-width: 3px;
+    background-color: rgb(33, 33, 33);
+    border-radius: 30%;
+
+    box-shadow: -3px -3px 5px rgb(40, 40, 40),
+        3px 3px 5px rgb(20, 20, 20);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    justify-self: center;
+    align-items: center;
+
+
+    transition: scale 0.25s, color 0.35s, box-shadow 0.35s;
+}
+
+.gridButton.toggle {
+    color: #747bff;
+    box-shadow: -1px -1px 2px rgb(40, 40, 40),
+        1px 1px 2px rgb(20, 20, 20);
+    border-color: #747bff;
+}
+
+.gridButton:active {
+    scale: 0.95;
+}
+
+.gridButton:hover {
+    border-color: #747bff;
+
+}
+
+.gridTick {
+
+    background-color: rgb(50, 50, 50);
+    width: 23%;
+    border-radius: 90%;
+    aspect-ratio: 1/1;
+
+    justify-self: center;
+
+}
+
+.gridTick.toggle {
+    background-color: #747bff;
+}

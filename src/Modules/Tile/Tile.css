@@ -1,0 +1,49 @@
+.tile {
+    transition: filter 0.5s;
+    justify-self: center;
+    align-self: center;
+    height: 70%;
+    aspect-ratio: 1/1;
+    background-color: rgb(31, 31, 31);
+    border-color: rgb(50, 50, 50);
+    border-style: solid;
+    border-radius: 100%;
+    border-width: 0.8cqh;
+    box-shadow: 5px 5px 5px rgb(20, 20, 20), -5px -5px 5px rgb(40, 40, 40);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.tile.toggle {
+    border-color: #747bff;
+    box-shadow: 2px 2px 2px rgb(20, 20, 20), -2px -2px 2px rgb(40, 40, 40);
+}
+
+.tile:hover {
+    border-color: #747bff;
+}
+
+.innerCircle {
+    height: 50%;
+    aspect-ratio: 1/1;
+    border-radius: 100%;
+
+    background-color: rgb(31, 31, 31);
+    transition: background-color 1s;
+}
+
+.innerCircle.toggle {
+    background-color: #747bff;
+}
+
+.cont {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    height: 95%;
+    width: 80%;
+
+
+
+}

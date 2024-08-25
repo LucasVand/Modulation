@@ -14,14 +14,11 @@
   border-color: rgb(40, 40, 40);
   border-width: 2px;
   border-style: solid;
-  box-shadow: 4px 4px 4px rgb(20, 20, 20), -4px -4px 4px rgb(40, 40, 40);
+  box-shadow: 4px 4px 3px rgb(20, 20, 20), -4px -4px 3px rgb(40, 40, 40);
 
-
-  aspect-ratio: 1.0/1.4;
+  aspect-ratio: 1.0/1.4 !important;
 
   user-select: none;
-
-
 
   display: flex;
   flex-direction: column;
@@ -37,9 +34,6 @@
   max-height: 300px;
 
   margin: 1em;
-
-
-
 }
 
 
